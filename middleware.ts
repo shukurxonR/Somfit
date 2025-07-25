@@ -22,6 +22,7 @@ export default authMiddleware({
 		'/:lng/instructor',
 		'/:lng/api/uploadthing',
 	],
+	ignoredRoutes: ['/en/api/webhook'],
 })
 
 export const config = {
