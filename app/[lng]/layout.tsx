@@ -21,6 +21,7 @@ const spaceGrotesk = SpaceGrotesk({
 	subsets: ['latin'],
 	variable: '--font-space-grotesk',
 })
+console.log('Salom')
 
 export async function generateStaticParams() {
 	return languages.map(lng => ({ lng }))
