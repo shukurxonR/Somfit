@@ -8,6 +8,7 @@ import type { Metadata } from 'next'
 import { extractRouterConfig } from 'uploadthing/server'
 
 import { Roboto, Space_Grotesk as SpaceGrotesk } from 'next/font/google'
+import { Toaster } from 'sonner'
 import { ourFileRouter } from './api/uploadthing/core'
 import './globals.css'
 const roboto = Roboto({
@@ -50,6 +51,7 @@ export default function RootLayout({ children, params: { lng } }: Props) {
 					>
 						<NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
 						{children}
+						<Toaster position='top-center' />
 					</ThemeProvider>
 				</body>
 			</html>

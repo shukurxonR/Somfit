@@ -42,7 +42,7 @@ function NavBar() {
 					</div>
 				</div>
 				<div className='flex items-center lg:gap-4'>
-					<div className='hidden lg:flex  items-center lg:border-r-2 lg:pr-2'>
+					<div className='hidden md:flex md:items-center md:gap-2 md:border-r md:pr-3'>
 						<SearchPanel />
 						<Button
 							variant={'ghost'}

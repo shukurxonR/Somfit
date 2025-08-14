@@ -4,6 +4,7 @@ import { createCourse } from '@/actions/course-action'
 import { courseCategory, courseLanguage, courseLevels } from '@/constants/const'
 import { UploadButton } from '@/lib/uploadthing'
 import { courseSchema } from '@/lib/validation'
+import { useUser } from '@clerk/nextjs'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ImageDown } from 'lucide-react'
 import Image from 'next/image'
@@ -38,6 +39,8 @@ function CourseFieldsForm() {
 	const [open, setOpen] = useState(false)
 
 	const router = useRouter()
+	const { user } = useUser()
+	console.log(user?.id)
 
 	const form = useForm<z.infer<typeof courseSchema>>({
 		resolver: zodResolver(courseSchema),
@@ -48,14 +51,23 @@ function CourseFieldsForm() {
 		if (!previewImage) {
 			return toast.error('Please upload a preview image')
 		}
+
+		if (!user?.id) {
+			return toast.error('User not found. Please wait or relogin.')
+		}
+
 		setIsLoading(true)
 		const { oldPrice, currentPrice } = values
-		const promise = createCourse({
-			...values,
-			oldPrice: +oldPrice,
-			currentPrice: +currentPrice,
-			previewImage,
-		})
+
+		const promise = createCourse(
+			{
+				...values,
+				oldPrice: +oldPrice,
+				currentPrice: +currentPrice,
+				previewImage,
+			},
+			user.id as string
+		)
 			.then(() => {
 				form.reset()
 				router.push('/en/instructor/my-courses')
